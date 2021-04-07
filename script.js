@@ -1,6 +1,6 @@
 const cartas = ["img/bobrossparrot.gif", "img/bobrossparrot.gif", "img/explodyparrot.gif", "img/explodyparrot.gif", "img/fiestaparrot.gif", "img/fiestaparrot.gif", "img/metalparrot.gif", "img/metalparrot.gif", "img/revertitparrot.gif", "img/revertitparrot.gif", "img/tripletsparrot.gif", "img/tripletsparrot.gif", "img/unicornparrot.gif", "img/unicornparrot.gif"] ;
 const conteudoParrot = document.querySelector(".conteudo");
-let qtdcartas = 6; //(prompt("Com quantas cartas quer jogar ?"))
+let qtdcartas = (prompt("Com quantas cartas quer jogar ?"));
 let primeiroPapagaio ;
 let segundoPapagaio ;
 let contadorJogadas = 0 ;
@@ -10,11 +10,14 @@ while (qtdcartas < 4 || qtdcartas > 14 || qtdcartas%2 !== 0){
     qtdcartas = (prompt("Com quantas cartas quer jogar ?"))
 }
 
+const cartasDoJogo = cartas.slice(0,qtdcartas)
+cartasDoJogo.sort(comparador)
+
 for(let i = 0; i < qtdcartas; i++){
     conteudoParrot.innerHTML += 
     `<div class=`+`dupla-carta${i}` + `>
         <img src="img/front.png" class="envolucro" onclick="vira(this)" alt="Carta virada pra cima">
-        <img src=${cartas[i]} class="envolucro esconde" onclick="vira(this)" alt="Carta virada pra cima">
+        <img src=${cartasDoJogo[i]} class="envolucro esconde" onclick="vira(this)" alt="Carta virada pra cima">
     </div>`
 }
 function vira(el){
@@ -61,4 +64,8 @@ function errou(primeiroPapagaio,segundoPapagaio){
     seuirmao(0,primeiroPapagaio)
     seuirmao(0,segundoPapagaio)
     jogando = 0
+}
+
+function comparador() { 
+	return Math.random() - 0.5; 
 }
