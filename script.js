@@ -1,43 +1,44 @@
-const cartas = ["img/bobrossparrot.gif", "img/bobrossparrot.gif", "img/explodyparrot.gif", "img/explodyparrot.gif", "img/fiestaparrot.gif", "img/fiestaparrot.gif", "img/metalparrot.gif", "img/metalparrot.gif", "img/revertitparrot.gif", "img/revertitparrot.gif", "img/tripletsparrot.gif", "img/tripletsparrot.gif", "img/unicornparrot.gif", "img/unicornparrot.gif"] ;
-const conteudoParrot = document.querySelector(".conteudo");
-let relogio ;
+let cartas = ["img/bobrossparrot.gif", "img/explodyparrot.gif",  "img/fiestaparrot.gif",  "img/metalparrot.gif", "img/revertitparrot.gif", "img/tripletsparrot.gif", "img/unicornparrot.gif"] ;
+let jogarMais;
+let idRelogio ;
 let tempo = 0;
-let qtdcartas = 4//(prompt("Com quantas cartas quer jogar ?"));
+let qtdcartas = (prompt("Com quantas cartas quer jogar ?"));
 let primeiroPapagaio ;
 let segundoPapagaio ;
 let contadorJogadas = 0 ;
 let jogando = 0;
-
-
-topo = document.querySelector(".topo")
-topo.innetHTML = `PARROT CARD GAME`
+const conteudoParrot = document.querySelector(".conteudo");
 
 while (qtdcartas < 4 || qtdcartas > 14 || qtdcartas%2 !== 0){
     qtdcartas = (prompt("Com quantas cartas quer jogar ?"))
 }
 
-const cartasDoJogo = cartas.slice(0,qtdcartas)
-cartasDoJogo.sort(comparador)
+cartas = cartas.sort(comparador)
+cartas = cartas.slice(0,qtdcartas/2)
+cartas.forEach(element => {
+    cartas.push(element)
+});
+cartas.sort(comparador)
 
 for(let i = 0; i < qtdcartas; i++){
     conteudoParrot.innerHTML += 
     `<div class=`+`dupla-carta` + `>
-        <img src="img/front.png" class="envolucro" onclick="vira(this)" alt="Carta virada pra cima">
-        <img src=${cartasDoJogo[i]} class="envolucro vira" onclick="vira(this)" alt="Carta virada pra cima">
+        <img src="img/front.png" class="envolucro1" onclick="vira(this)" alt="Carta virada pra cima">
+        <img src=${cartas[i]} class="envolucro2 vira" onclick="vira(this)" alt="Carta virada pra cima">
     </div>`
 }
 
 function vira(el){
 
-    if(el.nextElementSibling !== null && jogando === 0){
+    if(el.classList.contains("envolucro2") !== true && jogando === 0){
         
         const irmao = seuirmao(el,0)
-        let escondidos = document.querySelectorAll(".vira:last-child")
+        let escondidos = document.querySelectorAll(".envolucro2.vira")
         
         if (escondidos.length%2 !== 0){
             primeiroPapagaio = irmao
             if(contadorJogadas === 0){
-            relogio = setInterval(timer, 1000)
+            idRelogio = setInterval(relogio, 1000)
             }
 
         } else{
@@ -49,11 +50,19 @@ function vira(el){
             }
         }
 
-        if (document.querySelectorAll(".vira:last-child").length === 0){
-            alert(`Você ganhou em ${contadorJogadas} jogadas e em ${tempo} segundos!`)
-            clearTimeout(relogio)
-            jogarMais = prompt("Quer jogar mais uma vez ?")
-        }
+        if (document.querySelectorAll(".envolucro2.vira").length === 0){
+            clearTimeout(idRelogio)
+            setTimeout(alert,100,`Você ganhou em ${contadorJogadas} jogadas e em ${tempo} segundos!`)
+            setTimeout(function() {
+                while(jogarMais !== "Sim" && jogarMais !== "Não"){
+                    jogarMais = prompt("Quer jogar mais uma vez ? Sim ou Não")}
+                    if(jogarMais === "Sim"){
+                        document.location.reload()  
+                    }}, 100)
+                
+                    
+                    }
+               
     }   
 }
 
@@ -82,7 +91,8 @@ function comparador() {
 	return Math.random() - 0.5; 
 }
 
-function timer(){
+function relogio(){
     tempo += 1;
-    document.querySelector(".tempo").innerHTML = tempo;
+    document.querySelector(".topo").innerHTML = `<span class="parrot">PARROT CARD GAME</span>
+    <span class="tempo">${tempo}</span> `
 }

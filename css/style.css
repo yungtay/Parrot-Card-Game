@@ -9,12 +9,14 @@ color: #75B79E;
 font-weight: 700;
 font-style: "roboto";
 font-size: 56px;
+display: flex;
+justify-content: center;
+position: relative;
 }
 
 .tempo{
-    position:absolute;
-    top:10vh;
-    right:10vw;
+position: absolute;
+right: 10vw;
 }
 
 .conteudo{
@@ -30,7 +32,7 @@ position: relative;
 }
 
 
-.envolucro{
+.envolucro1, .envolucro2 {
     width: 117px;
     height: 146px;
     padding: 23px 7px;
@@ -55,3 +57,20 @@ top:0;
 right:0;
 
 }
+
+@media only screen and (max-width: 1000px) {
+
+    .topo{
+        display:block;
+    }
+    
+    .parrot{
+        display: block;
+        margin-bottom: 20px;
+    }
+    
+    .tempo{
+        position: initial;
+
+    }
+  } 
