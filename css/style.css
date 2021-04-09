@@ -22,9 +22,8 @@ right: 10vw;
 .conteudo{
     display: flex;
     flex-wrap: wrap;
-    flex: 1 0 calc(50% - 10px);
     justify-content: center;
-    padding: 0 20%;
+    padding: 0 23%;
 
 }
 
@@ -37,13 +36,18 @@ position: relative;
     width: 117px;
     height: 146px;
     padding: 23px 7px;
-    margin-right: 34px;
+    margin-right: 17px;
+    margin-left: 17px;
     margin-bottom: 34px;
     border-radius: 5px;
     background: #A7E9AF;
     backface-visibility: hidden;
     transition: all .5s;
     transform-style: preserve-3d;
+}
+
+.envolucro1 {
+
 }
 
 .envolucro img{
